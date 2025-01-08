@@ -26,4 +26,16 @@ class ReplyView(viewsets.ModelViewSet):
     serializer_class    = ReplySerializer
     queryset            = Reply.objects.all()
 
+    def get_queryset(self):
+        topic_id    = self.request.query_params.get('id')
+
+        try:
+            if topic_id:
+                return Reply.objects.filter(topic=topic_id)
+        except Exception as e:
+            print(e)
+
+        # idの指定なしの場合はNoneを返す
+        return Reply.objects.none()
+
 

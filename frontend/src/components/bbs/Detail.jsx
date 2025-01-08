@@ -76,7 +76,11 @@ const Detail = () => {
 
     const loadReplies = async () => {
         try {
-            const response = await axios.get("/api/replies/");
+
+            // TODO:ここでTopicに紐づくリプライだけ表示する
+            const response = await axios.get(`/api/replies/?id=${id}`);
+            // 指定がない場合は何も返さない
+            //const response = await axios.get(`/api/replies/`);
 
             const processed = {};
             for (let reply of response.data){
